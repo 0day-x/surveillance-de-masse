@@ -1,0 +1,1 @@
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif}main{max-width:1200px;margin:auto;padding:1rem}form{display:grid;gap:.5rem;margin:.75rem 0}input,select,textarea,button{font:inherit;padding:.55rem}textarea{min-height:5rem}.leaflet-container{border-radius:.5rem}

@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_DB: surveillance
+      POSTGRES_USER: surveillance
+      POSTGRES_PASSWORD: surveillance
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./api/migrations:/docker-entrypoint-initdb.d
+
+  api:
+    build: ./api
+    environment:
+      DATABASE_URL: postgres://surveillance:surveillance@db:5432/surveillance
+      PORT: 3000
+      CORS_ORIGIN: http://localhost:5173
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+  web:
+    build: ./web
+    environment:
+      VITE_API_URL: http://localhost:3000
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:
